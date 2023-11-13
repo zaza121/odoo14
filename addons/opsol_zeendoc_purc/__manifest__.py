@@ -13,7 +13,7 @@ This module help to save purchase invoice to zeendoc
 
      """,
     'author': 'H.Y',
-    'depends': ['opsol_zeendoc_core', 'account'],
+    'depends': ['opsol_zeendoc_core', 'account', 'account_tax_python'],
     'data': [
         # data
         "data/cron.xml",
