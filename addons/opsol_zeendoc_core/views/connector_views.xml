@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+  <record id="connector_view_form" model="ir.ui.view">
+    <field name="name">opsol_zeendoc_core.connector.form.view</field>
+    <field name="model">opsol_zeendoc_core.connector</field>
+    <field name="arch" type="xml">
+      <form string="Connector">
+        <header>
+            <!-- <button name="action_draft" type="object" string="Set to Draft" states="open,close,cancel" groups="purchase.group_purchase_manager,base.group_erp_manager"/>
+            <button name="action_open" type="object" string="Open" states="draft" groups="purchase.group_purchase_manager,base.group_erp_manager"/>
+            <button name="action_close" type="object" string="Close" states="open" groups="purchase.group_purchase_manager,base.group_erp_manager"/> -->
+            <button name="test_connexion" type="object" string="Test connexion" />
+            <!-- <field name="state" widget="statusbar" statusbar_visible="draft,open,close"/> -->
+        </header>
+        <sheet string="">
+          <div class="oe_button_box" name="button_box">
+              <!-- <button class="oe_stat_button" name="open_purchase" type="object" icon="fa-credit-card">
+                  <field string="Command" name="amount_purchase" widget="statinfo"/>
+              </button> -->
+          </div>
+          <div class="oe_title">
+            <label for="name" />
+            <h1>
+              <field name="name"/>
+            </h1>
+          </div>
+          <group name="main" col="4">
+            <group string="Informations" colspan="2">
+              <field name="type_connector" />
+              <field name="address" />
+              <field name="login" />
+              <field name="password" />
+            </group>
+            <group string="Validation" colspan="2">
+              <field name="coll_id" />
+            </group>
+          </group>
+          <notebook>
+            <page string="Index">
+              <group>
+                <field name="index_ids" nolabel="1">
+                  <tree editable="bottom">
+                    <field name="key" />
+                    <field name="label" />
+                    <field name="field_ids" widget="many2many_tags" domain="[('model_id.model', '=', 'account.move')]" />
+                    <field name="default_value"  />
+                    <field name="search_field_id" />
+                    <field name="connector_id" invisible="1"/>
+                  </tree>
+                </field>
+              </group>
+            </page>
+          </notebook>
+        </sheet>
+        <div class="oe_chatter">
+            <field name="message_follower_ids"/>
+            <field name="activity_ids"/>
+            <field name="message_ids" options="{'post_refresh': 'always'}"/>
+        </div>
+      </form>
+    </field>
+  </record>
+
+  <record id="connector_view_search" model="ir.ui.view">
+      <field name="name">opsol_zeendoc_core.connector.filter</field>
+      <field name="model">opsol_zeendoc_core.connector</field>
+      <field name="arch" type="xml">
+          <search string="Recherche">
+              <field name="name"/>
+              <field name="address"/>
+              <!-- <field name="date_end"/> -->
+          </search>
+      </field>
+  </record>
+
+  <record id="connector_view_tree" model="ir.ui.view">
+      <field name="name">opsol_zeendoc_core.autotag_lead.list</field>
+      <field name="model">opsol_zeendoc_core.connector</field>
+      <field name="arch" type="xml">
+          <tree string="Connector">
+              <field name="name"/>
+              <field name="address"/>
+              <!-- <field name="date_end"/> -->
+              <!-- <field name="state"/> -->
+          </tree>
+      </field>
+  </record>
+
+  <record id="connector_action" model="ir.actions.act_window">
+      <field name="name">Connectors</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">opsol_zeendoc_core.connector</field>
+      <field name="context">{'search_default_en_cours': 1}</field>
+      <field name="view_mode">tree,form</field>
+  </record>
+
+  <menuitem
+    id="menu_zeendoc_config_connector"
+    name="Connectors"
+    parent="opsol_zeendoc_core.menu_zeendoc_config"
+    sequence="20"
+    action="opsol_zeendoc_core.connector_action"/>
+
+</odoo>

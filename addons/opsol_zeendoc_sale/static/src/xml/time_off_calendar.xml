@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<templates id="template" xml:space="preserve">
+    <t t-extend="hr_holidays.dashboard_calendar_header">
+
+        <t t-jquery='.o_timeoff_container' t-operation='after'>
+                <p class="text-center o_timeoff_container" style="font-style:italic; font-weight: bold; color: #fa8072; top: 7.5rem;">Days to be cumulated and available until August 31st of the current school year</p>
+        </t>
+    </t>
+
+</templates>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="connector_view_form_inh" model="ir.ui.view">
+        <field name="name">opsol_zeendoc_core.connector.form.view.inh</field>
+        <field name="model">opsol_zeendoc_core.connector</field>
+        <field name="inherit_id" ref="opsol_zeendoc_core.connector_view_form" />
+        <field name="arch" type="xml">
+          
+            <xpath expr="//field[@name='coll_id']" position="after">
+                 <field name="auto_create_bill" attrs="{'invisible': [('type_connector', '=', 'push')]}" />
+                 <field name="product_id" attrs="{'invisible': [('type_connector', '=', 'push')], 'required': [('type_connector', '=', 'pull')]}"/>
+            </xpath>
+
+        </field>
+    </record>
+
+</odoo>

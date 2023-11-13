@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+  <menuitem name="Zeendoc"
+    id="menu_zeendoc"
+    groups=""
+    web_icon="opsol_zeendoc_core,static/description/zeendoc.png"
+    sequence="55">
+
+    <menuitem name="Zeendoc"
+    id="menu_zeendoc_config"
+    groups=""
+    sequence="20" />
+
+  </menuitem>
+
+</odoo>

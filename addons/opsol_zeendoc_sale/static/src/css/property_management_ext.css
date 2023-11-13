@@ -1,0 +1,60 @@
+/*.highcharts-container {
+    height: 600px !important;
+}
+
+.openerp .oe_kanban_view .oe_fold_column .oe_kanban_group_length {
+  position: absolute;
+  top: -1px;
+  right: -14px;
+  float: right;
+  display: none !important;;
+}
+
+.my_class [data-id="book_property"]{width: 2px;} [data-id="Avalbl_property"]{width: 4px;}
+*/
+
+.prop_ext_visite span{
+	color: #f50057;
+}
+
+.prop_ext_red_color span {
+	color: #f50057 !important;
+}
+
+.prop_ext_widget_state span {
+	color: #f50057 !important;
+}
+
+
+.prop_ext_widget_state .o_arrow_button{
+ 	background-color: #e2d5cc !important;
+ 	/*font-weight: bold !important; */
+ 	/*     content : none; */
+ 	/* border-left-color: #e2d5cc !important; */
+ 	/* border-left: #e2d5cc !important; */
+ 	/* border-bottom: 17px solid #e2d5cc !important; */
+/*  	border-bottom: 17px solid transparent !important; */
+/*  	border-left: 11px solid #e2d5cc !important; */
+}
+
+.prop_ext_widget_state .o_arrow_button:before{
+ 	/* background-color: black !important; */
+ 	/*font-weight: bold !important; */
+ 	/*     content : none; */
+ 	/* border-left-color: #e2d5cc !important; */
+ 	/* border-left: #e2d5cc !important; */
+ 	/* border-bottom: 17px solid #e2d5cc !important; */
+ 	/* border-bottom: 17px solid transparent !important; */
+ 	/* border-left: 11px solid black !important; */
+}
+
+.prop_ext_widget_state .o_arrow_button:after{
+/*  	background-color: #e2d5cc !important; */
+ 	/*font-weight: bold !important; */
+ 	/*     content : none; */
+ 	/* border-left-color: #e2d5cc !important; */
+ 	/* border-left: #e2d5cc !important; */
+ 	/* border-bottom: 17px solid #e2d5cc !important; */
+ 	border-bottom: 17px solid transparent !important;
+ 	border-left: 11px solid #e2d5cc !important;
+}

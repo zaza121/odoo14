@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="email_template_pre_commande" model="mail.template">
+            <field name="name">Envoyer pre commande</field>
+            <field name="model_id" ref="opsol_zeendoc_core.model_opsol_zeendoc_core_pre_commande"/>
+            <field name="subject">{{ object.company_id.name }} Order {{ object.code or 'n/a' }} : (Ref {{ object.name or 'n/a' }})</field>
+            <field name="partner_to">{{ object.partner_id.id }}</field>
+            <field name="body_html" type="html">
+<div style="margin: 0px; padding: 0px;">
+    <p style="margin: 0px; padding: 0px; font-size: 13px;">
+        Dear <t t-out="object.partner_id.name or ''">Brandon Freeman</t>
+        <t t-if="object.partner_id.parent_id">
+            (<t t-out="object.partner_id.parent_id.name or ''">Azure Interior</t>)
+        </t>
+        <br/><br/>
+        Here is in attachment an order <strong t-out="object.name or ''">P00015</strong>
+        from <t t-out="object.company_id.name or ''">YourCompany</t>.
+        <br/><br/>
+        If you have any questions, please do not hesitate to contact us.
+        <br/><br/>
+        Best regards,
+    </p>
+</div></field>
+            <field name="report_template" ref="opsol_zeendoc_core.pre_commande_action_report"/>
+            <field name="report_name">COMMANDE_{{ (object.code or '').replace('/','_') }}</field>
+            <field name="lang">{{ object.partner_id.lang }}</field>
+            <field name="auto_delete" eval="True"/>
+        </record>
+
+        <record id="email_template_leave_confirm" model="mail.template">
+            <field name="name">Leave confirmed</field>
+            <field name="model_id" ref="hr_holidays.model_hr_leave"/>
+            <field name="subject">Time off request</field>
+            <field name="partner_to">{{ object.employee_id.user_partner_id.id }}</field>
+            <field name="body_html" type="html">
+<div style="margin: 0px; padding: 0px;">
+    <p style="margin: 0px; padding: 0px; font-size: 13px;">
+        
+        <t t-out="object.number_of_days"></t> days of <t t-out="object.holiday_status_id.name"></t> requested on <t t-out="date"></t>  <t t-out="format_datetime(dt=object.date_from, dt_format='dd/MM/yy', lang_code=object.env.lang) or 'en_GB'" style="box-sizing:border-box;" contenteditable="false"></t>
+
+        <br/><br/>
+        Best regards,
+    </p>
+</div>
+            </field>
+            <field name="lang">{{ object.env.lang or 'en_GB'}}</field>
+            <field name="auto_delete" eval="True"/>
+        </record>
+
+        <record id="email_template_leave_validation_1" model="mail.template">
+            <field name="name">Leave first validation</field>
+            <field name="model_id" ref="hr_holidays.model_hr_leave"/>
+            <field name="subject">Time off request from {{ object.employee_id.display_name }}</field>
+            <field name="partner_to">{{ object.employee_id.user_partner_id.id }}</field>
+            <field name="body_html" type="html">
+<div style="margin: 0px; padding: 0px;">
+    <p style="margin: 0px; padding: 0px; font-size: 13px;">
+        
+        You have validated <t t-out="object.number_of_days"></t> days of <t t-out="object.holiday_status_id.name"></t> requested on <t t-out="date"></t>  <t t-out="format_datetime(dt=object.date_from, dt_format='dd/MM/yy', lang_code=object.env.lang) or 'en_GB'" style="box-sizing:border-box;" contenteditable="false"></t>
+
+        <br/><br/>
+        Best regards,
+    </p>
+</div>
+            </field>
+            <field name="lang">{{ object.env.lang or 'en_GB'}}</field>
+            <field name="auto_delete" eval="True"/>
+        </record>
+
+        <record id="email_template_leave_validation_1_tonextapproval" model="mail.template">
+            <field name="name">Leave first validation - mail to rh manager</field>
+            <field name="model_id" ref="hr_holidays.model_hr_leave"/>
+            <field name="subject">Time off request from {{ object.employee_id.display_name }}</field>
+            <field name="body_html" type="html">
+<div style="margin: 0px; padding: 0px;">
+    <p style="margin: 0px; padding: 0px; font-size: 13px;">
+        
+        <t t-out="object.employee_id.display_name"></t> requested <t t-out="object.number_of_days"></t> days of <t t-out="object.holiday_status_id.name"></t> requested on <t t-out="date"></t>  <t t-out="format_datetime(dt=object.date_from, dt_format='dd/MM/yy', lang_code=object.env.lang) or 'en_GB'" style="box-sizing:border-box;" contenteditable="false"></t>
+
+        <br/><br/>
+        Best regards,
+    </p>
+</div>
+            </field>
+            <field name="lang">{{ object.env.lang or 'en_GB'}}</field>
+            <field name="auto_delete" eval="True"/>
+        </record>
+
+        <record id="email_template_leave_validation_rh" model="mail.template">
+            <field name="name">Leave second validation</field>
+            <field name="model_id" ref="hr_holidays.model_hr_leave"/>
+            <field name="subject">[ACCEPTED]  Time off request from {{ object.employee_id.display_name }}</field>
+            <field name="body_html" type="html">
+<div style="margin: 0px; padding: 0px;">
+    <p style="margin: 0px; padding: 0px; font-size: 13px;">
+        
+        <t t-out="object.number_of_days"></t> days of <t t-out="object.holiday_status_id.name"></t> requested on <t t-out="date"></t>  <t t-out="format_datetime(dt=object.date_from, dt_format='dd/MM/yy', lang_code=object.env.lang) or 'en_GB'" style="box-sizing:border-box;" contenteditable="false"></t> has been accepted.
+
+        <br/><br/>
+        Best regards,
+    </p>
+</div>
+            </field>
+            <field name="lang">{{ object.env.lang or 'en_GB'}}</field>
+            <field name="auto_delete" eval="True"/>
+        </record>
+
+        <record id="email_template_leave_refused" model="mail.template">
+            <field name="name">Leave refused</field>
+            <field name="model_id" ref="hr_holidays.model_hr_leave"/>
+            <field name="subject">[REFUSED]  Time off request from {{ object.employee_id.display_name }}</field>
+            <field name="body_html" type="html">
+<div style="margin: 0px; padding: 0px;">
+    <p style="margin: 0px; padding: 0px; font-size: 13px;">
+        
+        <t t-out="object.number_of_days"></t> days of <t t-out="object.holiday_status_id.name"></t> requested on <t t-out="date"></t>  <t t-out="format_datetime(dt=object.date_from, dt_format='dd/MM/yy', lang_code=object.env.lang) or 'en_GB'" style="box-sizing:border-box;" contenteditable="false"></t> has been refused <t t-if="object.reason">for the following reason: <t t-out="object.reason"></t> </t>.
+
+        <br/><br/>
+        Best regards,
+    </p>
+</div>
+            </field>
+            <field name="lang">{{ object.env.lang or 'en_GB'}}</field>
+            <field name="auto_delete" eval="True"/>
+        </record>
+
+    </data>
+</odoo>

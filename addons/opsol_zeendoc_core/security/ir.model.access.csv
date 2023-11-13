@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_connector_all,connector all,opsol_zeendoc_core.model_opsol_zeendoc_core_connector,,1,1,1,1
+access_connector_index_all,connector_index all,opsol_zeendoc_core.model_opsol_zeendoc_core_connector_index,,1,1,1,1
+access_uploaded_file_all,uploaded_file all,opsol_zeendoc_core.model_opsol_zeendoc_core_uploaded_file,,1,1,1,1
+access_uploaded_file_line"_all,uploaded_file_line" all,opsol_zeendoc_core.model_opsol_zeendoc_core_uploaded_file_line,,1,1,1,1

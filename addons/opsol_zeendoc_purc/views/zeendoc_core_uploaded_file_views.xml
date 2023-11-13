@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="uploaded_file_view_form_inh" model="ir.ui.view">
+        <field name="name">opsol_zeendoc_core.uploaded_file.form.view.inh</field>
+        <field name="model">opsol_zeendoc_core.uploaded_file</field>
+        <field name="inherit_id" ref="opsol_zeendoc_core.uploaded_file_view_form" />
+        <field name="arch" type="xml">
+          
+            <xpath expr="//field[@name='state']" position="before">
+
+                <!-- <button name="create_vendor_invoice" type="object" string="Creer facture d'achat" attrs="{'invisible': [('move_type', '!=', 'in_invoice')]}"/> -->
+                <button name="create_vendor_invoice" type="object" string="Creer facture d'achat" />
+
+            </xpath>
+
+            <field name="filename" position="after">
+                <field name="invoice_id" />
+            </field>
+
+        </field>
+    </record>
+
+</odoo>

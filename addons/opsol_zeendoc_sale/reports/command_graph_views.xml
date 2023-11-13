@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+        <record model="ir.ui.view" id="view_command_graph_pivot">
+            <field name="name">product.month.pivot</field>
+            <field name="model">opsol_zeendoc_core.command_graph</field>
+            <field name="arch" type="xml">
+                <pivot string="Pre command analysis" display_quantity="1" sample="1">
+                    <field name="article" type="row"/>
+                    <field name="total" type="measure"/>
+                </pivot>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="view_command_graph_graph">
+            <field name="name">command_graph.graph</field>
+            <field name="model">opsol_zeendoc_core.command_graph</field>
+            <field name="arch" type="xml">
+                <graph string="Pre command Analysis" type="line" sample="1">
+                    <field name="categ_id" />
+                    <field name="budget_year_id" />
+                    <field name="total" type="measure"/>
+                </graph>
+            </field>
+        </record>
+
+        <record id="command_graph_view_tree" model="ir.ui.view">
+            <field name="name">command.graph.view.tree</field>
+            <field name="model">opsol_zeendoc_core.command_graph</field>
+            <field name="arch" type="xml">
+                <tree string="Pre command Analysis">
+                    <field name="command_id" />
+                    <field name="code" />
+                    <field name="categ_id" optional="show"/>
+                    <field name="state" optional="show"/>
+                    <field name="name" optional="show"/>
+                    <field name="budget_year_id" optional="show"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="command_graph_view_search" model="ir.ui.view">
+        <field name="name">opsol_zeendoc_core.command_graph.search</field>
+        <field name="model">opsol_zeendoc_core.command_graph</field>
+        <field name="arch" type="xml">
+            <search string="Pre command Search">
+                <field name="categ_id" />
+                <field name="date_command" />
+                <filter domain="[('state','not in',('cancel','recu'))]" string="Opened" name="en_cours"/>
+                <filter domain="[('bud_state','=','open')]" string="Budget Year Opened" name="bud_en_cours"/>
+                <group expand="1" string="Group By">
+                    <filter string="By Budget Year" name="gby_budget_year_id" context="{'group_by':'budget_year_id'}"/>
+                    <filter string="By dudget" name="gby_categ_id" context="{'group_by':'categ_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_command_graph_report_all" model="ir.actions.act_window">
+        <field name="name">Command</field>
+        <field name="res_model">opsol_zeendoc_core.command_graph</field>
+        <field name="view_mode">graph,pivot</field>
+        <field name="view_id"></field>
+        <field name="context">{'search_default_en_cours': 1, 'search_default_bud_en_cours': 1, 'search_default_gby_budget_year_id': 1, 'search_default_gby_categ_id': 1}</field>
+        <field name="help"></field>
+        <field name="target">current</field>
+    </record>
+
+    <menuitem
+        id="purchase_report_main_command_graph"
+        name="Pre command Analysis"
+        parent="purchase.purchase_report_main"
+        sequence="100"
+        groups="purchase.group_purchase_manager"
+        action="action_command_graph_report_all"/>
+
+</odoo>

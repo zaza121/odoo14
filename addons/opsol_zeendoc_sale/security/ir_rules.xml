@@ -1,0 +1,43 @@
+<odoo>
+    <data noupdate="1">
+
+        <!-- <record id="hr_leave.hr_leave_rule_employee" model="ir.rule">
+            <field name="domain_force" eval="['|',('employee_id.timeoff_by_all', '=', True),('employee_id.user_id', '=', user.id)]" />
+        </record> -->
+
+        <record id="precommand_rule_default" model="ir.rule">
+            <field name="name">User only see her own pre command</field>
+            <field name="model_id" ref="model_opsol_zeendoc_core_pre_commande"/>
+            <field name="domain_force">['|', ('create_uid', '=', user.id), ('confirm_by_id', '=', user.id)]</field>
+            <field name="groups" eval="[(4,ref('base.group_user'))]"/>
+        </record>
+
+        <record id="precommand_rule_admin" model="ir.rule">
+            <field name="name">Purchase Administrator can see all pre command</field>
+            <field name="model_id" ref="model_opsol_zeendoc_core_pre_commande"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field name="groups" eval="[(4,ref('purchase.group_purchase_manager'))]"/>
+        </record>
+
+        <record id="precommand_rule_cannot_delete" model="ir.rule">
+            <field name="name">Cannot delete precommand not in draft</field>
+            <field name="model_id" ref="model_opsol_zeendoc_core_pre_commande"/>
+            <field name="domain_force">[('state', '=', 'draft')]</field>
+            <field name="perm_read" eval="False"/>
+            <field name="perm_create" eval="False"/>
+            <field name="perm_write" eval="False"/>
+            <field name="perm_unlink" eval="True"/>
+        </record>
+
+        <record id="precommandline_rule_cannot_delete" model="ir.rule">
+            <field name="name">Cannot delete precommand line in draft</field>
+            <field name="model_id" ref="model_opsol_zeendoc_core_pre_commande_line"/>
+            <field name="domain_force">[('command_id.state', 'not in', ['cfo', 'send', 'recu'])]</field>
+            <field name="perm_read" eval="False"/>
+            <field name="perm_create" eval="False"/>
+            <field name="perm_write" eval="False"/>
+            <field name="perm_unlink" eval="True"/>
+        </record>
+
+    </data>
+</odoo>

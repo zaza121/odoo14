@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<templates id="template" xml:space="preserve">
+    
+    <t t-extend="hr_holidays.department_leave">
+
+        <t t-jquery='.o_inner_group' t-operation='replace'>
+        </t>
+    </t>
+
+</templates>

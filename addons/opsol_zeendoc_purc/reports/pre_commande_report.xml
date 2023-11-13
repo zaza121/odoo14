@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+	<template id="report_precommande">
+    	<t t-call="web.html_container">
+    		<t t-foreach="docs" t-as="o">
+		        <t t-call="web.external_layout">
+		            <div class="page" style="font-size: normal;">
+
+		            		<style>
+											.table th {padding: 0.5rem}
+										</style>
+		                <div class="row" style="margin-top: -2 rem;">
+		                	<div class="col-9">
+		                		<h4 align="left"><b>INTERNATIONAL SCHOOL OF MONACO</b></h4>
+		                		<h4 align="left"><b>ECOLE INTERNATIONALE DE MONACO</b></h4>
+                        <div class="row" style="border: 1px solid black; margin: 0px; padding: 0.5rem;">
+                          <div class="col-6">
+                            <span>Adresse de livraison et facturation</span><br/>
+                            <span>International School of Monaco</span><br/>
+                            <span>12, Quai Antoine 1er</span><br/>
+                            <span>MC 98000 MONACO</span>
+                          </div>
+                          
+                          <div class="col-6">
+                            <span> Delivery and invoice address</span><br/>
+                            <span>International School of Monaco</span><br/>
+                            <span>13, avenue de la Quarantaine</span><br/>
+                            <span>MC 98000 MONACO</span>
+                          </div>
+                        </div>
+		                	</div>
+		                	<div class="col-3" style="text-align: center">
+		                		<div style="margin-left: 1.5rem;font-size: small;">
+			                		<div style="border: 1px solid black; padding-top: 1rem; padding-bottom: 1rem;">
+	                          <h5><b>Commande</b></h5>
+			                		  <h5><b>Order No.</b></h5>
+			                		  <h5><span t-field="o.code"/></h5>
+	                        </div>
+	                        <br/>
+	                        <span>Tel No.  00377 93.25.68.20</span><br/>
+	                        <span>Fax No. 00377 93.25.68.30</span>
+	                      </div>
+		                	</div>
+		                </div>
+
+		                <br/>
+										<div class="row">
+											<div class="col-12">A l'attention de / For the attention of:   <strong><span t-field="o.categ_id" /><t t-if="o.budget_department_id">/ <span t-field="o.budget_department_id.name" /></t><t t-if="o.sous_budget">/ <span t-field="o.sous_budget" /></t></strong></div>
+  									</div>
+		                <div class="row">
+		                	<div class="col-6">Fournisseur / Supplier: <b><span style="margin: 0.5rem;" t-field="o.partner_text"/></b></div>
+											<div class="col-6">Catalogue / Publisher:</div>
+		                </div>
+		                <br/>
+		                <table class="table">
+		                	<colgroup>
+									       <col span="1" style="width: 5%;"/>
+									       <col span="1" style="width: 18%;"/>
+									       <col span="1" style="width: 38%;"/>
+									       <col span="1" style="width: 5%;"/>
+									       <col span="1" style="width: 11%;"/>
+									       <col span="1" style="width: 13%;"/>
+									       <col span="1" style="width: 10%;"/>
+									    </colgroup>
+		                	<thead>
+		                		<th>No.</th>
+		                		<th>Ref. No.</th>
+		                		<th>Description</th>
+		                		<th>Qty</th>
+		                		<th style="font-size: 90%;">Unit Price	</th>
+		                		<th>Total</th>
+		                		<th>Rvd	</th>
+		                	</thead>
+		                	<tbody>
+		                		<tr t-foreach="o.lines_ids" t-as="line">
+				                	<td style="text-align: right"><span t-esc="line_index+1"/></td>
+				                	<td/>
+				                	<td style="text-align: left"><span t-field="line.article"/></td>
+				                	<td style="text-align: right"><span t-field="line.quantite"/></td>
+				                	<td style="text-align: right"><span t-field="line.pu"/></td>
+				                	<td style="text-align: right"><span t-field="line.total"/></td>
+				                	<td style="text-align: right">0</td>
+				                </tr>
+				                <tr>
+				                	<td colspan="4" style="margin:0px; padding: 0px;padding-top: 2rem;">
+				                			<div style="display: inline-block; width:100%; margin:0px; margin-bottom: 0rem;">
+				                				
+				                				<table class="table table-borderless" style="width: 100%; padding: 0px;">
+				                					<tr>
+				                						<td style="width: 58%; padding: 0px"><span style="font-size: 90%;">Requested by.:</span>  <span style="font-weight: bold; margin-left: 0.25rem;" t-field="o.confirm_by_id"/> </td>
+				                						<td style="width: 40%; padding: 0px; font-size: 90%;">Date: <span t-field="o.date_confirm"/></td>
+				                					</tr>
+				                					<tr>
+				                						<td style="width: 58%; padding: 0px"><span style="font-size: 90%;">Validation Line M.:</span>  <span style="font-weight: bold; margin-left: 0.25rem;" t-field="o.resp_bud_id"/> </td>
+				                						<td style="width: 40%; padding: 0px; font-size: 90%;">Date: <span t-field="o.date_resp_bud"/></td>
+				                					</tr>
+				                					<tr>
+				                						<td style="padding: 0px"><span style="font-size: 90%;">Validation DEPUTY CFO:</span> <span style="font-weight: bold; margin-left: 0.25rem;" t-field="o.assistante_id"/></td>
+				                						<td style="padding: 0px;font-size: 90%;">Date: <span t-field="o.date_assistante"/></td>
+				                					</tr>
+				                					<tr>
+				                						<td style="padding: 0px"><span style="font-size: 90%;">Validation Budget:</span><span style="font-weight: bold; margin-left: 0.25rem;" t-field="o.cfo_id"/></td>
+				                						<td style="padding: 0px;font-size: 90%;">Date: <span t-field="o.date_cfo"/></td>
+				                					</tr>
+				                					<tr>
+				                						<td style="padding: 0px"><span style="font-size: 90%;">Validation Achat:</span> <span style="font-weight: bold; margin-left: 0.25rem;" t-field="o.coordo_id"/></td>
+				                						<td style="padding: 0px;font-size: 90%; ">Date: <span t-field="o.date_coordo"/></td>
+				                					</tr>
+				                					
+				                				</table>
+	                              
+				                			</div>
+				                			<div style="display: inline-block; width:47%; margin:0px;">
+	                              <div style="padding: 0px; margin:0px;margin-top: 0.5rem;">
+	                                <span style="display: inline-block;width: 38%; padding: 0px;">Cost Centre:</span>
+	                                <span style="display: inline-block;width: 60%;border-bottom: 1px solid black; padding: 0px;"/>
+	                              </div>
+	                              <div style="padding: 0px; margin:0px;margin-top: 0.5rem;">
+	                                <span style="display: inline-block;width: 33%; padding: 0px;">Signature:</span>
+	                                <span style="display: inline-block;width: 65%;border-bottom: 1px solid black; padding: 0px;"/>
+	                              </div>
+				                			</div>
+				                			<div style="display: inline-block; width:47%; margin:0px;margin-left: 2%;">
+                                <div style="padding: 4px; margin:0px;border: 1px solid black;margin-top: 0.5rem;">
+                                	<span>(*) Please precise currency (€, £, $ or else)</span>
+                                </div>
+                                <!-- <div style="padding: 0px; margin:0px;margin-top: 0.5rem;">
+	                                <span style="display: inline-block;width: 28%; padding: 0px;">Date:</span>
+	                                <span style="display: inline-block;width: 70%;border-bottom: 1px solid black; padding: 0px;"/>
+	                              </div> -->
+				                			</div>
+				                	</td>
+				                	<td colspan="3" style="margin:0px; padding: 0px;padding-top: 2rem; font-size: 90%;">
+                            
+                              <div style="width: 100%;margin:0px; padding: 0px;"> 
+                                <span style="display: inline-block;width: 30%;">TOTAL</span>
+                                <span style="display: inline-block;width: 65%;margin-left: 3%; text-align: right"><b><span t-field="o.total"/></b></span>
+                              </div>
+                              <div style="width: 100%;margin:0px; padding: 0px;margin-top: 0.5rem;">
+                                <span style="display: inline-block;width: 30%;">TAX (20%)</span>
+                                <span style="display: inline-block;width: 65%;margin-left: 3%; text-align: right"><b>0</b></span>
+                              </div>
+                              <div style="width: 100%;margin:0px; padding: 0px;margin-top: 0.5rem;">
+                                <span style="display: inline-block;width: 30%;">TOTAL (*)</span>
+                                <span style="display: inline-block;width: 65%;margin-left: 3%; text-align: right"><b><span t-field="o.total"/></b></span>
+                              </div>
+                            
+				                	</td>
+				                </tr>
+			                </tbody>
+		                </table>
+
+		                <div class="row">
+	                      <div class="col-12">
+	                        <div t-if="len(o.lines_ids) &gt; 6" class="" style="text-align: center;page-break-before: always;">
+	                            <img style="page-break-inside:avoid;" t-if="o.company_id.stamp" t-att-src="image_data_uri(o.company_id.stamp)" alt="Logo" height="250px"/>
+	                        </div>
+	                        <div t-if="len(o.lines_ids) &lt;= 6" class="" style="text-align: center;">
+	                            <img style="page-break-inside:avoid;" t-if="o.company_id.stamp" t-att-src="image_data_uri(o.company_id.stamp)" alt="Logo" height="250px"/>
+	                        </div>
+	                      </div>
+	                  </div>
+		            </div>
+		        </t>
+		    </t>
+    	</t>
+    </template>
+
+	<record id="pre_commande_action_report" model="ir.actions.report">
+	    <field name="name">Commande</field>
+	    <field name="model">opsol_zeendoc_core.pre_commande</field>
+	    <field name="report_type">qweb-pdf</field>
+	    <field name="report_name">opsol_zeendoc_core.report_precommande</field>
+	    <field name="report_file">opsol_zeendoc_core.report_precommande</field>
+	    <field name="attachment_use" eval="False"/>
+	    <field name="attachment">((object.code or "") +'.pdf')</field>
+	    <field name="binding_model_id" ref="opsol_zeendoc_core.model_opsol_zeendoc_core_pre_commande"/>
+	    <field name="binding_type">report</field>
+	    <field name="paperformat_id" ref="opsol_zeendoc_core.paperformat_command"/>
+	</record>
+
+</odoo>

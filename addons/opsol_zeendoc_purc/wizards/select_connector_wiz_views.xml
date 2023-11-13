@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <record id="select_connector_wiz_form_view" model="ir.ui.view">
+        <field name="name">Select the connector</field>
+        <field name="model">wizard.opsol_zeendoc_sale.select_connector</field>
+        <field name="arch" type="xml">
+            <form string="Selectionnez l'armoire">
+                <p>
+                    Veuillez choisir l'armoire a utiliser pour la sauvegarde de la facture<field name="invoice_id" readonly="1"/>
+                </p>
+                <group>
+                    <field name="connector_id" />
+                </group>
+                <footer>
+                    <button name="do_ation"
+                        string="Envoyer"
+                        type="object"
+                        data-hotkey="c"
+                        class="btn-primary"/>
+                    <button string="Annuler"
+                        class="btn-secondary"
+                        special="cancel" data-hotkey="q" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="select_connector_wiz_action" model="ir.actions.act_window">
+        <field name="name">Selectionner l'armoire</field>
+        <field name="res_model">wizard.opsol_zeendoc_sale.select_connector</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+</odoo>
