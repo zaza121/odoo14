@@ -33,6 +33,9 @@ class UploadedFile(models.Model):
     def create_vendor_invoice(self):
         invoice_obj = self.env["account.move"]
         for rec in self:
+            if rec.invoice_id and rec.invoice_id.state != 'cancel':
+                continue
+
             map_key_field = rec.connector_id.get_map_key_field("account.move")
             lines = self.get_map_key_value()
             values = {'move_type': 'in_invoice'}
