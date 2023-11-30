@@ -18,6 +18,10 @@
                 <field name="invoice_id" />
             </field>
 
+            <field name="search_field_id" position="after">
+                <field name="is_expense_account" />
+            </field>
+
         </field>
     </record>
 

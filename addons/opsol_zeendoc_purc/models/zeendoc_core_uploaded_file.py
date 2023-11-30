@@ -30,6 +30,21 @@ class UploadedFile(models.Model):
                 lambda x: x.connector_id.type_connector == "pull"):
             upf.create_vendor_invoice()
 
+    def get_correct_product(self):
+        """Get the product based on an existing information of account.
+        
+            If there is a line with a checkbox 'is_expense_account' enable, we look
+            for a product with the associated account if not we take the default account.
+        """
+        default_product = self.connector_id and self.connector_id.product_id
+        values = self.line_ids.filtered(lambda x: x.is_expense_account).mapped("value")
+        account_code = values and values[0] or None
+        result = None
+        if account_code:
+            search_field = 'property_account_expense_id.code' if self.connector_id.type_connector == 'pull' else 'property_account_income_id.code'
+            result = self.env["product.product"].search([(search_field, '=', account_code)], limit=1)
+        return result or default_product
+
     def create_vendor_invoice(self):
         invoice_obj = self.env["account.move"]
         for rec in self:
@@ -48,7 +63,7 @@ class UploadedFile(models.Model):
 
             data_line = {'quantity': 1}
             if rec.connector_id.product_id:
-                product = rec.connector_id.product_id
+                product = rec.get_correct_product()
                 data_line["product_id"] = product.id
                 data_line["name"] = product.name
                 data_line["tax_ids"] = product.supplier_taxes_id.ids
@@ -77,3 +92,8 @@ class UploadedFile(models.Model):
                     subject=_("Envoi vers Zeendoc"),
                     body=message % (rec.connector_id.name, rec.res_id),
                     message_type='comment')
+
+class UploadedFileIndex(models.Model):
+    _inherit = "opsol_zeendoc_core.uploaded_file_line"
+
+    is_expense_account = fields.Boolean(string='Est un compte comptable', default=False)
