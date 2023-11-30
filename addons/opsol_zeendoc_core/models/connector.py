@@ -229,6 +229,18 @@ class Connector(models.Model):
             connector.getAllDocument()
 
     @api.model
+    def prepare_index_lines_with_values(self, indexes):
+        connector_indexes = self.index_ids
+        result = []
+        for key, value in indexes.items():
+            value = ",".join(value) if type(value) == list else value
+            c_index = connector_indexes.filtered(lambda x: x.key == key)
+            label = c_index.label if c_index else ""
+            search_field = c_index.search_field_id.id if c_index.search_field_id else None
+            result.append([0, 0, {'key': key, 'value': value, 'label': label, 'search_field_id': search_field}])
+        return result
+
+    @api.model
     def create_uploadtype(self, document):
         """
             Create uploadfile from documents.
@@ -271,14 +283,7 @@ class Connector(models.Model):
 
         if not indexes:
             return {}
-    
-        for key, value in indexes.items():
-            value = ",".join(value) if type(value) == list else value
-            c_index = connector_indexes.filtered(lambda x: x.key == key)
-            label = c_index.label if c_index else ""
-            search_field = c_index.search_field_id.id if c_index.search_field_id else None
-            elt.update({
-                'line_ids': [[0, 0, {'key': key, 'value': value, 'label': label, 'search_field_id': search_field}]]})
+        elt.update({'line_ids': self.prepare_index_lines_with_values(indexes)})
 
 
 class ConnectorIndex(models.Model):
